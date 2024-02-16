@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import React from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
-import Colors from "@/constants/Colors";
+import Colors from "@/lib/constants/Colors";
 import { FontAwesome6 } from "@expo/vector-icons";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/

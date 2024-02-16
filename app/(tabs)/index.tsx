@@ -1,33 +1,31 @@
 import { Text, View } from "@/components/Themed";
+import { PokemonSimple } from "@/lib/definitions";
+import { usePokemonListQuery } from "@/lib/queries/usePokemonListQuery";
 import { Link } from "expo-router";
-import { Button } from "react-native-paper";
+import { ScrollView } from "react-native";
 
 export default function HomeScreen() {
+  const query = usePokemonListQuery();
+
   return (
     <View>
-      <Text>Tab One</Text>
-      <View lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <View className="p-2 rounded-xl border m-4">
-        <Text className="text-lg">Test tailwind</Text>
-      </View>
-      <Link href={"/login"} asChild>
-        Go to login
-      </Link>
-      <Button className="m-2" mode="outlined">
-        Login
-      </Button>
-      <Button className="m-2" mode="contained">
-        Login
-      </Button>
-      <Button className="m-2" mode="contained-tonal">
-        Login
-      </Button>
-      <Button className="m-2" mode="elevated">
-        Login
-      </Button>
-      <Button className="m-2" mode="text">
-        Login
-      </Button>
+      {query.isLoading ? (
+        <Text>Loading...</Text>
+      ) : query.isError ? (
+        <Text>Error: {query.error.message}</Text>
+      ) : (
+        <ScrollView className="-auto">
+          {query.data!.results.map((pokemon: PokemonSimple) => (
+            <Link
+              key={pokemon.name}
+              href={`/pokemon/${pokemon.name}`}
+              className="p-2 bg-gray-200 m-2"
+            >
+              <Text>{pokemon.name}</Text>
+            </Link>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }
