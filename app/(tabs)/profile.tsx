@@ -1,10 +1,10 @@
-import { Text, View } from "@/components/Themed";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
 
-export default function TabTwoScreen() {
+export default function ProfileScreen() {
   return (
-    <View>
-      <Text>Tab Two</Text>
-      <View lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+    <View className="p-2 bg-red-400">
+      <Text className="p-2 text-xxl">Profile</Text>
     </View>
   );
 }
