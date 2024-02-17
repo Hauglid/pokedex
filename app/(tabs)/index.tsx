@@ -1,31 +1,35 @@
 import { Text, View } from "@/components/Themed";
-import { PokemonSimple } from "@/lib/definitions";
 import { usePokemonListQuery } from "@/lib/queries/usePokemonListQuery";
+import { capitalize } from "@/lib/utils";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import { ScrollView } from "react-native";
+import { FlatList, Pressable } from "react-native";
 
 export default function HomeScreen() {
   const query = usePokemonListQuery();
 
   return (
-    <View>
-      {query.isLoading ? (
-        <Text>Loading...</Text>
-      ) : query.isError ? (
-        <Text>Error: {query.error.message}</Text>
-      ) : (
-        <ScrollView className="-auto">
-          {query.data!.results.map((pokemon: PokemonSimple) => (
-            <Link
-              key={pokemon.name}
-              href={`/pokemon/${pokemon.name}`}
-              className="p-2 bg-gray-200 m-2"
-            >
-              <Text>{pokemon.name}</Text>
-            </Link>
-          ))}
-        </ScrollView>
+    <FlatList
+      refreshing={true}
+      ListFooterComponent={() => <Text>Loading...</Text>}
+      ListEmptyComponent={() => <Text>No results</Text>}
+      className="p-4 bg-white"
+      ItemSeparatorComponent={() => <View className="h-4" />}
+      data={query.data?.pages.flatMap((page) => page.results) ?? []}
+      keyExtractor={(item) => item.name}
+      onEndReached={() => query.fetchNextPage()}
+      renderItem={({ item }) => (
+        <Link
+          asChild
+          className="w-full border rounded bg-gray-100 p-4"
+          href={`/pokemon/${item.name}`}
+        >
+          <Pressable className="flex flex-row justify-between items-center">
+            <Text className="text-lg">{capitalize(item.name)}</Text>
+            <FontAwesome6 name="arrow-right" size={18} color="black" />
+          </Pressable>
+        </Link>
       )}
-    </View>
+    />
   );
 }
