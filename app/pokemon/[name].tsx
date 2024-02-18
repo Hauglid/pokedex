@@ -1,5 +1,6 @@
 import { ErrorComponent } from "@/components/pokemon.[name]/error";
 import LoadingComponent from "@/components/pokemon.[name]/loading";
+import { Favourite } from "@/components/pokemon.[name]/ui/favourite";
 import { Moves } from "@/components/pokemon.[name]/ui/moves";
 import { ProfileImage } from "@/components/pokemon.[name]/ui/profile-image";
 import { SpritesList } from "@/components/pokemon.[name]/ui/spriteslist";
@@ -11,6 +12,7 @@ import {
 } from "@/lib/constants/Colors";
 import { usePokemonQuery } from "@/lib/queries/usePokemonQuery";
 import { capitalize } from "@/lib/utils";
+import { FontAwesome } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -23,6 +25,7 @@ export default function PokemonScreen() {
   const query = usePokemonQuery(name);
   const [value, setValue] = React.useState("stats");
   const headerHeight = useHeaderHeight();
+
   if (query.isLoading) {
     return (
       <View className="m-auto">
@@ -37,6 +40,7 @@ export default function PokemonScreen() {
       </View>
     );
   }
+
   const pokemon = query.data!;
   const type = pokemon.types[0].type.name;
   const backgroundColor = getColorFromType(type);
@@ -90,12 +94,16 @@ export default function PokemonScreen() {
             </View>
           </ScrollView>
           <View className="items-center relative">
-            <View className="h-16 absolute bottom-0 left-0 right-0 rounded-t-3xl bg-white " />
+            <View className="h-16 absolute bottom-0 left-0 right-0 rounded-t-3xl bg-white "></View>
+            <View className="absolute bottom-2 left-4">
+              <Favourite name={pokemon.name} />
+            </View>
             <ProfileImage
               uri={pokemon.sprites.other["official-artwork"].front_default}
             />
           </View>
         </View>
+
         <View className="bg-white p-2 pb-4 h-full ">
           <SegmentedButtons
             value={value}
@@ -109,7 +117,13 @@ export default function PokemonScreen() {
               { value: "sprites", label: "Sprites" },
             ]}
           />
-          {value === "stats" && <Stats stats={pokemon.stats} />}
+          {value === "stats" && (
+            <Stats
+              stats={pokemon.stats}
+              weight={pokemon.weight}
+              height={pokemon.height}
+            />
+          )}
           {value === "moves" && <Moves moves={pokemon.moves} />}
           {value === "sprites" && <SpritesList sprites={pokemon.sprites} />}
         </View>

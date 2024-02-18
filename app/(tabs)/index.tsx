@@ -1,3 +1,4 @@
+import { PokemonListItem } from "@/components/pokemon-list-item";
 import { usePokemonListQuery } from "@/lib/queries/usePokemonListQuery";
 import { capitalize } from "@/lib/utils";
 import { FontAwesome6 } from "@expo/vector-icons";
@@ -19,19 +20,7 @@ export default function HomeScreen() {
       onEndReached={() => query.fetchNextPage()}
       onEndReachedThreshold={0.5}
       renderItem={({ item, index }) => (
-        <Link
-          asChild
-          className="w-full border rounded-xl bg-gray-100 p-4"
-          href={`/pokemon/${item.name}`}
-        >
-          <Pressable className="flex flex-row justify-between items-center">
-            <View className="flex flex-row items-center gap-4">
-              <Text>#{(index + 1).toString().padStart(3, "0")}</Text>
-              <Text className="text-lg">{capitalize(item.name)}</Text>
-            </View>
-            <FontAwesome6 name="arrow-right" size={18} color="black" />
-          </Pressable>
-        </Link>
+        <PokemonListItem name={item.name} index={index} />
       )}
     />
   );

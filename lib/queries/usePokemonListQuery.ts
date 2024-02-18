@@ -3,7 +3,7 @@ import { fetchPokemonList } from "../requests/fetchPokemonList";
 
 export const usePokemonListQuery = () =>
   useInfiniteQuery({
-    queryKey: ["projects"],
+    queryKey: ["allpokemon"],
     queryFn: async ({ pageParam }) => {
       return fetchPokemonList(pageParam);
     },

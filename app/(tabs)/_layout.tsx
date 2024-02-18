@@ -3,19 +3,14 @@ import React from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import Colors from "@/lib/constants/Colors";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
+import { useFavouritePokemonQuery } from "@/lib/queries/useFavouritePokemonQuery";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome6>["name"];
-  color: string;
-}) {
-  return <FontAwesome6 size={28} style={{ marginBottom: -3 }} {...props} />;
-}
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const favouriteQuery = useFavouritePokemonQuery();
   return (
     <Tabs
       screenOptions={{
@@ -26,14 +21,26 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Pokemons",
-          tabBarIcon: ({ color }) => <TabBarIcon name="dragon" color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="catching-pokemon" size={size} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="favourites"
+        listeners={{
+          tabPress: (e) => {
+            favouriteQuery.refetch();
+          },
+        }}
         options={{
-          title: "Profile",
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          title: "Favourites",
+          tabBarIcon: ({ color, focused, size }) => {
+            if (focused) {
+              return <FontAwesome name="heart" size={size} color={color} />;
+            }
+            return <FontAwesome6 size={size} name="heart" color={color} />;
+          },
         }}
       />
     </Tabs>
