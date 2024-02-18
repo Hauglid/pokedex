@@ -58,7 +58,7 @@ export default function PokemonScreen() {
               style={{ color: getTextColorFromColor(backgroundColor) }}
               className=" text-lg"
             >
-              #{pokemon.order}
+              # {pokemon.order.toString().padStart(3, "0")}
             </Text>
           </View>
           <View className="flex flex-row justify-start pl-2">
