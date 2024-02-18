@@ -60,3 +60,17 @@ export function getColorFromType(type: string) {
       return "#68A090";
   }
 }
+
+export function getTypeColorFromType(type: string) {
+  return getColorFromType(type) + "CC";
+}
+
+export function getTextColorFromColor(color: string) {
+  const luminance =
+    (0.299 * parseInt(color.slice(1, 3), 16) +
+      0.587 * parseInt(color.slice(3, 5), 16) +
+      0.114 * parseInt(color.slice(5, 7), 16)) /
+    255;
+
+  return luminance > 0.5 ? "#000" : "#fff";
+}

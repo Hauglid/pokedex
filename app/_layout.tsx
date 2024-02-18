@@ -57,6 +57,15 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="pokemon/[name]"
+          options={{
+            headerTitle: "",
+            headerBackTitleVisible: false,
+            headerTransparent: true,
+            headerTintColor: "black",
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );
