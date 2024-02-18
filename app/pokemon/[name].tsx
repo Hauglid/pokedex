@@ -63,7 +63,7 @@ export default function PokemonScreen() {
               style={{ color: getTextColorFromColor(backgroundColor) }}
               className=" text-lg"
             >
-              # {pokemon.order.toString().padStart(3, "0")}
+              # {pokemon.id.toString().padStart(3, "0")}
             </Text>
           </View>
           <ScrollView horizontal>
@@ -96,7 +96,7 @@ export default function PokemonScreen() {
           <View className="items-center relative">
             <View className="h-16 absolute bottom-0 left-0 right-0 rounded-t-3xl bg-white "></View>
             <View className="absolute bottom-2 left-4">
-              <Favourite name={pokemon.name} />
+              <Favourite name={pokemon.name} index={pokemon.id} />
             </View>
             <ProfileImage
               uri={pokemon.sprites.other["official-artwork"].front_default}

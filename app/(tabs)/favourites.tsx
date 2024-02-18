@@ -21,31 +21,9 @@ import { Button } from "react-native-paper";
 export default function FavouritesScreen() {
   const query = useFavouritePokemonQuery();
 
-  if (query.isLoading) {
-    return (
-      <View className="m-auto">
-        <LoadingComponent />
-      </View>
-    );
-  }
-  if (query.isError) {
-    return (
-      <View className="m-auto">
-        <ErrorComponent message={"query.error.message"} />
-      </View>
-    );
-  }
-  const favourites = query.data!;
-
   return (
     <FlatList
-      refreshing={query.isFetching}
-      refreshControl={
-        <RefreshControl
-          refreshing={query.isFetching}
-          onRefresh={query.refetch}
-        />
-      }
+      refreshing={query.isLoading || query.isFetching}
       ListFooterComponent={() =>
         query.isFetching ? <Text>Loading...</Text> : null
       }
@@ -62,7 +40,10 @@ export default function FavouritesScreen() {
       ItemSeparatorComponent={() => <View className="h-4" />}
       data={query.data?.flatMap((page) => page) ?? ""}
       keyExtractor={(item) => item}
-      renderItem={({ item }) => <PokemonListItem name={item} />}
+      renderItem={({ item }) => {
+        const values = item.split(":");
+        return <PokemonListItem name={values[1]} index={parseInt(values[0])} />;
+      }}
     />
   );
 }
