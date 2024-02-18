@@ -10,7 +10,7 @@ export function Stats({ stats }: { stats: Stat[] }) {
             key={stat.stat.name}
             className="border flex-grow min-w-0  rounded-xl p-4 shadow bg-white"
           >
-            <Text className="text-center min-w-0 " key={stat.stat.name}>
+            <Text className="text-center min-w-0 ">
               {stat.stat.name.toUpperCase()}
             </Text>
             <Text className="text-3xl text-center min-w-0">

@@ -18,14 +18,17 @@ export default function HomeScreen() {
       keyExtractor={(item) => item.name}
       onEndReached={() => query.fetchNextPage()}
       onEndReachedThreshold={0.5}
-      renderItem={({ item }) => (
+      renderItem={({ item, index }) => (
         <Link
           asChild
-          className="w-full border rounded bg-gray-100 p-4"
+          className="w-full border rounded-xl bg-gray-100 p-4"
           href={`/pokemon/${item.name}`}
         >
           <Pressable className="flex flex-row justify-between items-center">
-            <Text className="text-lg">{capitalize(item.name)}</Text>
+            <View className="flex flex-row items-center gap-4">
+              <Text>#{(index + 1).toString().padStart(3, "0")}</Text>
+              <Text className="text-lg">{capitalize(item.name)}</Text>
+            </View>
             <FontAwesome6 name="arrow-right" size={18} color="black" />
           </Pressable>
         </Link>
