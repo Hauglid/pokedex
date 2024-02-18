@@ -1,9 +1,8 @@
-import { Text, View } from "@/components/Themed";
 import { usePokemonListQuery } from "@/lib/queries/usePokemonListQuery";
 import { capitalize } from "@/lib/utils";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import { FlatList, Pressable } from "react-native";
+import { FlatList, Pressable, View, Text } from "react-native";
 
 export default function HomeScreen() {
   const query = usePokemonListQuery();
