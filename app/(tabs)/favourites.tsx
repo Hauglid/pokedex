@@ -38,7 +38,13 @@ export default function FavouritesScreen() {
       }
       className="p-4 bg-white"
       ItemSeparatorComponent={() => <View className="h-4" />}
-      data={query.data?.flatMap((page) => page) ?? ""}
+      data={
+        query.data?.sort((a, b) => {
+          const values = a.split(":");
+          const values2 = b.split(":");
+          return parseInt(values[0]) - parseInt(values2[0]);
+        }) ?? ""
+      }
       keyExtractor={(item) => item}
       renderItem={({ item }) => {
         const values = item.split(":");

@@ -18,7 +18,7 @@ export default {
   },
 };
 
-export function getColorFromType(type: string) {
+export function getPrimaryColorFromType(type: string) {
   switch (type) {
     case "normal":
       return "#A8A878";
@@ -61,8 +61,8 @@ export function getColorFromType(type: string) {
   }
 }
 
-export function getTypeColorFromType(type: string) {
-  return getColorFromType(type) + "CC";
+export function getAccentColorFromType(type: string) {
+  return getPrimaryColorFromType(type) + "CC";
 }
 
 export function getTextColorFromColor(color: string) {

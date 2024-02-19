@@ -6,9 +6,9 @@ import { ProfileImage } from "@/components/pokemon.[name]/ui/profile-image";
 import { SpritesList } from "@/components/pokemon.[name]/ui/spriteslist";
 import { Stats } from "@/components/pokemon.[name]/ui/stats";
 import {
-  getColorFromType,
+  getPrimaryColorFromType,
   getTextColorFromColor,
-  getTypeColorFromType,
+  getAccentColorFromType,
 } from "@/lib/constants/Colors";
 import { usePokemonQuery } from "@/lib/queries/usePokemonQuery";
 import { capitalize } from "@/lib/utils";
@@ -43,7 +43,7 @@ export default function PokemonScreen() {
 
   const pokemon = query.data!;
   const type = pokemon.types[0].type.name;
-  const backgroundColor = getColorFromType(type);
+  const backgroundColor = getPrimaryColorFromType(type);
 
   return (
     <View
@@ -69,7 +69,7 @@ export default function PokemonScreen() {
           <ScrollView horizontal>
             <View className="flex flex-row justify-start pl-2">
               {pokemon.types.map((type) => {
-                const backgroundColor = getTypeColorFromType(type.type.name);
+                const backgroundColor = getAccentColorFromType(type.type.name);
                 const textColor = getTextColorFromColor(backgroundColor);
 
                 return (

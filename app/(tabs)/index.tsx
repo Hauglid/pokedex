@@ -18,7 +18,7 @@ export default function HomeScreen() {
       data={query.data?.pages.flatMap((page) => page.results) ?? []}
       keyExtractor={(item) => item.name}
       onEndReached={() => query.fetchNextPage()}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={1}
       renderItem={({ item, index }) => (
         <PokemonListItem name={item.name} index={index} />
       )}

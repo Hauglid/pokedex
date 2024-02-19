@@ -24,7 +24,6 @@ export async function savePokemonFavourite(name: string, index: number) {
       await AsyncStorage.setItem(STORAGE_KEY, `${index}:${name}`);
     } else {
       const newString = saved.join(",") + "," + `${index}:${name}`;
-      console.log({ newString });
       await AsyncStorage.setItem(STORAGE_KEY, newString);
     }
   } catch (e) {
@@ -48,7 +47,6 @@ export async function removePokemonFavourite(name: string) {
 
 export async function isPokemonFavourite(pokemon: string) {
   const saved = await getSavedPokemonFavourites();
-  console.log({ saved });
   return saved.some((p) => p.includes(pokemon));
 }
 
